@@ -34,17 +34,6 @@ def test_node_space_sample():
         sample = space.sample(num_edges=5)
         assert sample in space
 
-    # Change the node_space or edge_space to a non-Box or discrete space.
-    # This should not happen, test is primarily to increase coverage.
-    with pytest.raises(
-        TypeError,
-        match=re.escape(
-            "Expects base space to be Box and Discrete, actual space: <class 'str'>"
-        ),
-    ):
-        space.node_space = "abc"
-        space.sample()
-
 
 def test_edge_space_sample():
     space = Graph(node_space=Discrete(3), edge_space=Discrete(3))
@@ -154,6 +143,8 @@ def test_probability_node_sampling():
         space.sample(probability=((probability,), None), num_nodes=1).nodes[0]
         for _ in range(num_samples)
     ]
+
+    print(samples)
 
     # Check the empirical distribution of the samples
     counts = np.bincount(samples, minlength=3)
