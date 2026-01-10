@@ -144,8 +144,6 @@ def test_probability_node_sampling():
         for _ in range(num_samples)
     ]
 
-    print(samples)
-
     # Check the empirical distribution of the samples
     counts = np.bincount(samples, minlength=3)
     empirical_distribution = counts / num_samples
